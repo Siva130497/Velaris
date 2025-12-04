@@ -1,6 +1,6 @@
 // Winston/pino/etc logger setup
 
-const createLogger = () => {
+export const createLogger = () => {
   return {
     info: (...args) => console.log("[INFO]", ...args),
     warn: (...args) => console.warn("[WARN]", ...args),
