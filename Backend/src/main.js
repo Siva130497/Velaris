@@ -1,14 +1,17 @@
 // Application entrypoint
+import { loadEnv } from "./core/config/env.js";
+import { createLogger } from "./core/logging/logger.js";
+import { bootstrap } from "./core/startup/bootstrap.js";
 
-import express from "express";
+loadEnv();
 
-const app = express();
-const port = 3000
+const logger = createLogger();
 
-app.get("/", (req, res) => {
-    res.send("Hello World")
-});
-
-app.listen(port,() => {
-    console.log(`App is running on port ${port}`)
-})
+bootstrap(logger)
+  .then(() => {
+    logger.info("✅ Velaris backend started successfully");
+  })
+  .catch((err) => {
+    logger.error("❌ Failed to start Velaris backend", err);
+    process.exit(1);
+  });
